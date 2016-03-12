@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+#include <stdlib.h>
+#include <ctime>
+
+using namespace std;
+
+int main() {
+
+  int x_int_hundred;
+  int x_int_hundred_thousand;
+  int y_int_hundred;
+  int y_int_hundred_thousand;
+  double percentage_hundred_thousand;
+  int factor_hundred = 0;
+  int factor_hundred_thousand = 0;
+  double missed_pillar_count_hundred;
+  double hit_pillar_count_hundred = 0;
+  double hit_pillar_count_hundred_thousand = 0;
+  double probability_sample_size_100;
+  double probability_sample_size_100000;
+  double exact_probability;
+  srand(time(0));
+
+  for (int count_hundred = 0; count_hundred <= 100; count_hundred++) {
+    x_int_hundred = (rand() % 1000) + 1;
+    y_int_hundred = (rand() % 1000) + 1;
+
+    // Find out if x_int and y_int can be simplified
+    for (int i_hundred = 1; i_hundred <= x_int_hundred && i_hundred <= y_int_hundred; i_hundred++) {
+      if (x_int_hundred % i_hundred == 0 && y_int_hundred % i_hundred == 0) {
+        factor_hundred = i_hundred;
+        if (factor_hundred != 1) {
+          hit_pillar_count_hundred = hit_pillar_count_hundred + 1;
+        } else {
+
+        }
+      }
+    }
+  }
+  for (int count_hundred_thousand = 0; count_hundred_thousand <= 100000; count_hundred_thousand++) {
+    x_int_hundred_thousand = (rand() % 1000) + 1;
+    y_int_hundred_thousand = (rand() % 1000) + 1;
+
+    // Find out if x_int and y_int can be simplified
+
+    for (int i_hundred_thousand = 1; i_hundred_thousand <= x_int_hundred_thousand && i_hundred_thousand <= y_int_hundred_thousand; i_hundred_thousand++) {
+      if (x_int_hundred_thousand % i_hundred_thousand == 0 && y_int_hundred_thousand % i_hundred_thousand == 0) {
+        factor_hundred_thousand = i_hundred_thousand;
+        if (factor_hundred_thousand != 1) {
+          // If the number can be simplified, then add a count to the hit pillar count.
+          hit_pillar_count_hundred_thousand = hit_pillar_count_hundred_thousand + 1;
+        } else {
+
+        }
+      }
+    }
+  }
+
+  probability_sample_size_100000 = 100000 - hit_pillar_count_hundred_thousand;
+  probability_sample_size_100 = 100 - hit_pillar_count_hundred;
+
+  missed_pillar_count_hundred_thousand = 100000 - hit_pillar_count_hundred_thousand;
+  missed_pillar_count_hundred = 100 - hit_pillar_count_hundred;
+
+  percentage_hundred_thousand = probability_sample_size_100000 / 100000;
+  probability_sample_size_100000 = percentage_hundred_thousand * 100;
+
+  exact_probability = ((missed_pillar_count_hundred_thousand + missed_pillar_count_hundred) * 100) / 100100;
+
+  cout << "Estimated probability that the line does not hit any intermediate points using a sample size of size 100 if " << probability_sample_size_100 << "%" << "." << endl << "\n";
+
+  cout << "Estimated probability that the line does not hit any intermediate points using a sample size of size 100000 if " << probability_sample_size_100000 << "%" << endl << "\n";
+
+  cout << "Exact probability that the line does not hit any intermediate points is " << exact_probability << "%" << endl << "\n";
+
+  char dummy;
+  cout << "Enter any character and hit enter/return to quit." << endl;
+  cin >> dummy;
+}
